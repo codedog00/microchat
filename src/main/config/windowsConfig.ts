@@ -2,16 +2,16 @@ import config from '@config/index'
 
 
 export const mainWindowConfig = {
-    height: 800,
+    height: 640,
     useContentSize: true,
-    width: 1700,
-    minWidth: 1366,
+    width: 900,
+    minWidth: 860,
     show: false,
     frame: config.IsUseSysTitle,
     webPreferences: {
         contextIsolation: false,
         nodeIntegration: true,
-        webSecurity: false,
+        webSecurity: true,
         // 如果是开发模式可以使用devTools
         devTools: process.env.NODE_ENV === 'development',
         // 在macos中启用橡皮动画
@@ -20,17 +20,18 @@ export const mainWindowConfig = {
 };
 
 export const otherWindowConfig = {
-    height: 595,
+    // height: 595,
+    // width: 1140,
     useContentSize: true,
-    width: 1140,
     autoHideMenuBar: true,
-    minWidth: 842,
-    frame: config.IsUseSysTitle,
+    // minWidth: 842,
+    // frame: config.IsUseSysTitle,
+    frame: false,
     show: false,
     webPreferences: {
         contextIsolation: false,
         nodeIntegration: true,
-        webSecurity: false,
+        webSecurity: true,
         // 如果是开发模式可以使用devTools
         devTools: process.env.NODE_ENV === 'development',
         // 在macos中启用橡皮动画

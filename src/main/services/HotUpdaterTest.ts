@@ -125,7 +125,7 @@ function reduceGlobPatterns(globs: string[] | undefined | ((str: string) => bool
         }, '')
         .substr(1),
     );
-    return regex.test(param);
+    return regex.selectionMode(param);
   }
 }
 /**

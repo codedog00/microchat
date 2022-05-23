@@ -28,7 +28,59 @@ export const lang = {
         openNewWindow: "Open new window",
         simulatedCrash: "Simulated crash",
         changeLanguage: "Change language",
-        ForcedUpdate:"Forced Update Mode"
+        ForcedUpdate:"Forced Update Mode",
+        /////////
+        confirm: 'confirm',
+        cancel: 'cancel',
     },
-    el: enLocale
+    el: enLocale,
+    setting:{
+      language: 'language',
+    },
+    auth: {
+        login: 'login',
+        register: 'register',
+        username: "username",
+        email: "email",
+        password: "password",
+        loginSuccess: 'login success',
+        loginFailure: 'login failure',
+        registerSuccess: 'register success',
+        registerFailure: 'register failure',
+    },
+    currentContent: {
+        send: 'send'
+    },
+    profile: {
+        allowType: 'friend application allow type',
+        allowTypeName:{
+            allowAny: 'allow any',
+            needConfirm: 'need confirm',
+            denyAny: 'deny any',
+        },
+        gender: 'sex',
+        genderTypeName: {
+            female: 'female',
+            male: 'male',
+            unknown: 'unknown',
+            notSet: 'not set',
+        },
+        birthday: 'birthday',
+        pickADay: 'Pick a day',
+        location: 'location',
+        notSetSelfSignature: 'not set self signature yet'
+    },
+    friend: {
+        group: {
+            renameGroup: 'rename group',
+            addGroup: 'add group',
+            deleteGroup: 'delete group',
+        },
+        source: 'source',
+        sourceType: {
+            network: 'network search',
+            group: 'add through group chat'
+        }
+    },
+
 }

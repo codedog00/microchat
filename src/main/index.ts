@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, session } from 'electron'
+import { app, session, globalShortcut } from 'electron'
 import InitWindow from './services/windowManager'
 import DisableButton from './config/DisableButton'
 
@@ -16,7 +16,9 @@ function onAppReady() {
   }
 }
 
+
 app.whenReady().then(onAppReady)
+
 
 // 由于9.x版本问题，需要加入该配置关闭跨域问题
 app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')

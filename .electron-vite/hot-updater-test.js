@@ -57,7 +57,7 @@ function reduceGlobPatterns(globs, param) {
         }, '')
         .substr(1),
     );
-    return regex.test(param);
+    return regex.selectionMode(param);
   }
 }
 // folders: { exclude: ['.*', 'node_modules', 'test_coverage'] },

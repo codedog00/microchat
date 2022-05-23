@@ -92,12 +92,14 @@ export default {
     ipcMain.handle('open-win', (event, arg) => {
       const ChildWin = new BrowserWindow({
         titleBarStyle: config.IsUseSysTitle ? 'default' : 'hidden',
+        width: arg.width,
+        height: arg.height,
         ...Object.assign(otherWindowConfig, {})
       })
       // 开发模式下自动开启devtools
-      if (process.env.NODE_ENV === 'development') {
-        ChildWin.webContents.openDevTools({ mode: 'undocked', activate: true })
-      }
+      // if (process.env.NODE_ENV === 'development') {
+      //   ChildWin.webContents.openDevTools({ mode: 'undocked', activate: true })
+      // }
       ChildWin.loadURL(winURL + `#${arg.url}`)
       ChildWin.once('ready-to-show', () => {
         ChildWin.show()
@@ -117,6 +119,17 @@ export default {
       // 渲染进程显示时触发
       ChildWin.once("show", () => {
         ChildWin.webContents.send('send-data-test', arg.sendData)
+      })
+    })
+    ipcMain.handle('open-picturePicker',async (event,arg) => {
+      return await dialog.showOpenDialog({
+        title: '选择图片',
+        filters:[
+          {
+            name: 'img',
+            extensions: ['jpeg']
+          }
+        ]
       })
     })
   }

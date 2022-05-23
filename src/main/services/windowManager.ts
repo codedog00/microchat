@@ -1,7 +1,7 @@
 import setIpc from './ipcMain'
 import config from '@config/index'
 import menuconfig from '../config/menu'
-import { app, BrowserWindow, Menu, dialog } from 'electron'
+import {app, BrowserWindow, Menu, dialog, globalShortcut} from 'electron'
 import { winURL, loadingURL } from '../config/StaticPath'
 import { mainWindowConfig } from "../config/windowsConfig"
 
@@ -34,6 +34,7 @@ class MainInit {
       titleBarStyle: config.IsUseSysTitle ? 'default' : 'hidden',
       ...Object.assign(mainWindowConfig, {})
     })
+
     // 赋予模板
     const menu = Menu.buildFromTemplate(menuconfig as any)
     // 加载模板
