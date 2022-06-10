@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="loginData" label-width="4rem">
+  <el-form :model="loginData" label-width="4rem" :rules="rules">
     <el-form-item :label="$t('auth.username')">
       <el-input v-model="loginData.username"></el-input>
     </el-form-item>
@@ -11,7 +11,7 @@
 
 <script lang="ts">
 
-import {PropType} from "vue";
+import {PropType, reactive, ref} from "vue";
 
 interface loginData {
   username: string;
@@ -25,7 +25,7 @@ export default {
       type: Object as PropType<loginData>,
       required: true,
     }
-  }
+  },
 }
 </script>
 

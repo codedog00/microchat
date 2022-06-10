@@ -88,7 +88,35 @@ export default {
           })
     },
     searchGroupByID() {
-
+      this.tim.searchGroupByID(this.searchStr)
+          .then(res => {
+            const group = res.data.group as group;
+            const flag = confirm(`是否加入群聊：${group.name}`)
+            if(flag) {
+              this.tim.joinGroup({
+                groupID: group.groupID,
+              })
+                  .then(imResponse => {
+                    switch (imResponse.data.status) {
+                      case this.TIM.TYPES.JOIN_STATUS_WAIT_APPROVAL: // 等待管理员同意
+                        ElMessage.success('申请成功，请等待管理员同意');
+                        break;
+                      case this.TIM.TYPES.JOIN_STATUS_SUCCESS: // 加群成功
+                        ElMessage.success('加群成功')
+                        break;
+                      case this.TIM.TYPES.JOIN_STATUS_ALREADY_IN_GROUP: // 已经在群中
+                        ElMessage.warning('已在群中')
+                        break;
+                      default:
+                        break;
+                    }
+                  })
+            }
+          })
+          .catch(err => {
+            ElMessage.error('群组不存在');
+            console.error(err);
+          })
     },
     openVCard(friend:friend) {
       let data:VCardDialogData = {relationship: 'friend',data: friend};

@@ -6,6 +6,9 @@
 
 <script lang="ts">
 import {PropType} from "vue";
+import useUserStore from "@store/user/user";
+
+const userStore = useUserStore();
 
 export default {
   name: "GroupTipElement",
@@ -16,9 +19,13 @@ export default {
     }
   },
   computed: {
+    userID: () => userStore.userProfile.userID,
     messageForShow() {
-      let nick = this.message.payload.memberList[0].nick || this.message.payload.memberList[0].userID;
-      const userName = this.message.payload.memberList[0].nick || this.message.payload.userIDList.join(',')
+      let nick = this.message.nick
+          || ((this.message.from === this.userID) && this.currentUserProfile.nick)
+          || this.message.from
+
+      const userName = this.message.nick || this.message.payload.userIDList.join(',')
       switch (this.message.payload.operationType) {
         case this.TIM.TYPES.GRP_TIP_MBR_JOIN:
           return `群成员：${userName} 加入群组`

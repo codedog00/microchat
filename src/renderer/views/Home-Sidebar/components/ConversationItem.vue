@@ -1,5 +1,6 @@
 <template>
   <SidebarListItem
+      :src="avatar"
       :index="conversation.conversationID"
       :unread-count="conversation.unreadCount"
   >
@@ -21,6 +22,9 @@
 <script lang="ts">
 import {Prop} from "vue";
 import SidebarListItem from "@renderer/components/SidebarList/SidebarListItem.vue";
+import avatar_person from '@renderer/assets/avatar/person.png';
+import avatar_group from '@renderer/assets/avatar/group.png';
+import avatar_system from "@renderer/assets/avatar/system.png";
 
 export default {
   name: "ConversationItem",
@@ -29,6 +33,13 @@ export default {
     conversation: {
       type: Object as Prop<conversation>,
       required: true
+    }
+  },
+  setup() {
+    return {
+      avatar_person,
+      avatar_group,
+      avatar_system,
     }
   },
   computed: {
@@ -48,6 +59,18 @@ export default {
         return `${date.getHours()}:${date.getMinutes()}`;
       }else {
         return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`
+      }
+    },
+    avatar() {
+      switch (this.conversation.type) {
+        case this.TIM.TYPES.CONV_C2C:
+          return this.conversation.userProfile.avatar || this.avatar_person
+        case this.TIM.TYPES.CONV_GROUP:
+          return this.conversation.groupProfile.avatar || this.avatar_group
+        case this.TIM.TYPES.CONV_SYSTEM:
+          return this.avatar_system
+        default:
+          return ''
       }
     }
   }

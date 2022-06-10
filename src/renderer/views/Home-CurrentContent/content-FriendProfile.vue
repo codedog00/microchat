@@ -91,6 +91,9 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.oldGroup = this.currentFriend.groupList[0];
+  },
   beforeUpdate() {
     //在刷新时使用oldGroup记录原来的分组，以便更改分组时使用
     this.oldGroup = this.currentFriend.groupList[0];
@@ -114,6 +117,7 @@ export default {
     },
     changeFriendGroup(option) {
       //从原来分组移除
+      console.warn(this.oldGroup)
       this.tim.removeFromFriendGroup({
         name: this.oldGroup,
         userIDList: [this.currentFriend.userID]

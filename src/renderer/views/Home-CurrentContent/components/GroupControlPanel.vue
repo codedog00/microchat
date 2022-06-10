@@ -120,6 +120,11 @@ export default {
       return this.profile.selfInfo.role === this.TIM.TYPES.GRP_MBR_ROLE_OWNER;
     },
   },
+  watch: {
+    profile(newValue) {
+      this.updateMembers();
+    }
+  },
   methods: {
     deleteMember(member:GroupMember) {
       this.tim.deleteGroupMember({

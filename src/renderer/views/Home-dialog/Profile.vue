@@ -20,20 +20,20 @@
       <!--   显示个性签名   -->
       <ModifiableText
           :text="modifiableUserProfile.selfSignature || this.$t('profile.notSetSelfSignature')"
-          v-model="modifiableUserProfile.selfSignature"
+          v-model="userStore.userProfile.selfSignature"
       />
 
       <hr style="width: 100%"/>
 
-      <el-form v-model="modifiableUserProfile" label-width="4.5rem">
+      <el-form v-model="userStore.userProfile" label-width="4.5rem">
 
         <el-form-item :label="'用户名'">
-          <el-input disabled v-model="modifiableUserProfile.userID"/>
+          <el-input disabled v-model="userStore.userProfile.userID"/>
         </el-form-item>
 
         <el-form-item :label="this.$t('profile.gender')">
           <el-select
-              v-model="modifiableUserProfile.gender"
+              v-model="userStore.userProfile.gender"
               :placeholder="modifiableUserProfile.gender || this.$t('profile.genderTypeName.notSet')"
           >
             <el-option
@@ -53,7 +53,7 @@
 
         <el-form-item :label="this.$t('profile.birthday')">
           <el-date-picker
-              v-model="modifiableUserProfile.birthday"
+              v-model="userStore.userProfile.birthday"
               :placeholder="this.$t('profile.pickADay')"
               style="width: 100%"
           />
@@ -64,7 +64,7 @@
         </el-form-item>
 
         <el-form-item :label="this.$t('profile.allowType')">
-          <el-select v-model="modifiableUserProfile.allowType">
+          <el-select v-model="userStore.userProfile.allowType">
             <el-option
                 :value="this.TIM.TYPES.ALLOW_TYPE_ALLOW_ANY"
                 :label="this.$t('profile.allowTypeName.allowAny')"
@@ -137,8 +137,10 @@ export default {
   },
   methods: {
     updateProfile() {
-      let {nick, selfSignature, gender, birthday, allowType,location} = this.modifiableUserProfile
-      this.userStore.updateProfile({nick, selfSignature, gender, birthday, allowType,location})
+      let {nick, selfSignature, gender, birthday, allowType,location} = userStore.userProfile
+      this.userStore.updateProfile({
+        nick, selfSignature, gender: this.TIM.TYPES.GENDER_MALE, birthday: Number(birthday), allowType,location
+      })
           .then(data => {
             ElMessage.success('修改成功')
             dialogStore.closeHomeDialog();

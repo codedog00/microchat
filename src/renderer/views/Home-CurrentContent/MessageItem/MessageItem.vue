@@ -10,7 +10,7 @@
       :index="message.ID"
       :position="position"
       :title="name"
-      :src="message.avatar"
+      :src="avatar"
       @avatarClick="openVCard"
   >
     <MessageBubble :position="position">
@@ -42,6 +42,8 @@ import useUserStore from "@store/user/user";
 import useDialogStore from "@store/dialog/dialog";
 import GroupTipElement from "@renderer/views/Home-CurrentContent/MessageItem/GroupTipElement.vue";
 import MessageBubble from "@renderer/components/MessageBox/MessageBubble.vue";
+import avatar_system from "@renderer/assets/avatar/system.png";
+import avatar_person from "@renderer/assets/avatar/person.png";
 
 const friendStore = useFriendStore();
 const userStore = useUserStore();
@@ -59,6 +61,12 @@ export default {
       required: true,
     }
   },
+  setup() {
+    return {
+      avatar_system,
+      avatar_person,
+    }
+  },
   mounted() {
     this.$parent.$refs.messageBox.scrollTop = this.$parent.$refs?.messageBox.scrollHeight;
   },
@@ -68,6 +76,14 @@ export default {
     },
     name() {
       return this.message.nameCard || this.message.nick || this.message.from
+    },
+    avatar() {
+      switch (this.message.conversationType) {
+        case this.TIM.TYPES.CONV_SYSTEM:
+          return this.message.avatar || avatar_system
+        default:
+          return this.message.avatar || avatar_person
+      }
     },
     currentMessageElement() {
       switch (this.message.type) {

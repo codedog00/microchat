@@ -59,7 +59,6 @@
           </el-icon>
         </template>
       </MessageSendBox>
-
       <Drawer v-model="isShowDrawer" width="16rem" style="height: calc(100%);box-shadow: -3px 0 4px rgba(0,0,0,0.1)">
         <ConversationControlPanel :type="currentConversation?.type" :profile="currentConversation?.groupProfile"/>
       </Drawer>

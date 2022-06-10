@@ -3,6 +3,7 @@
     <SidebarListItem
         v-for="group in groupList"
         :index="group.groupID"
+        :src="group.avatar || avatar_group"
         @click="openConversation(group.groupID)"
     >
       <div class="content">
@@ -19,12 +20,19 @@ import useGroupStore from "@store/group/group";
 import useConversationStore from "@store/conversation/conversation";
 import SidebarListItem from "@renderer/components/SidebarList/SidebarListItem.vue";
 import SidebarList from "@renderer/components/SidebarList/SidebarList.vue";
+import avatar_group from "@renderer/assets/avatar/group.png";
+
 const groupStore = useGroupStore();
 const conversationStore = useConversationStore();
 
 export default {
   name: "GroupList",
   components: {SidebarList, SidebarListItem},
+  setup() {
+    return {
+      avatar_group
+    }
+  },
   computed: {
     groupList:() => groupStore.groupList,
   },

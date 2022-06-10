@@ -16,6 +16,16 @@ interface friend {
 }
 
 interface friendApplicationContent {
-    friendApplicationList: any[];
+    friendApplicationList: FriendApplication[];
     unreadCount: number;
+}
+
+interface FriendApplication {
+    userID: string;
+    avatar: string;
+    nick: string;
+    time: string;
+    source: string;
+    wording: string;
+    type: string;
 }

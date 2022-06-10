@@ -4,7 +4,6 @@
       <el-badge class="avatar-wrapper" :value="unreadCount" :hidden="unreadCount === 0">
         <el-avatar  :src="src" />
       </el-badge>
-
       <slot></slot>
     </div>
   </el-menu-item>

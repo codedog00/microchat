@@ -17,13 +17,21 @@
         </el-menu-item>
 
         <div class="menu-box">
-          <el-popover placement="right" trigger="click">
+          <el-popover width="4rem" placement="right" trigger="click">
             <template #reference>
-              <el-icon class="menu" @click="changeLanguage">
+              <el-icon class="menu">
                 <Menu/>
               </el-icon>
             </template>
-            {{$t('setting.language')}}
+            <div class="more-menu-wrapper">
+              <div
+                  class="more-menu-item"
+                  @click="logout"
+              >
+                登出
+              </div>
+            </div>
+
           </el-popover>
         </div>
 
@@ -35,6 +43,7 @@
             size="small" style="width: 12rem"
             v-model="searchStr"
             :prefix-icon="Search"
+            placeholder="搜索"
             @focus="openSearchList"
             @keydown.esc.exact="showSearchList = false"
             @click.stop
@@ -67,10 +76,12 @@ import useUserStore from "@store/user/user";
 import useDialogStore from "@store/dialog/dialog";
 import useGroupStore from "@store/group/group";
 import useFriendStore from "@store/friend/friend";
+import {ref} from "vue";
 
 const dialogStore = useDialogStore();
 const friendStore = useFriendStore();
 const groupStore = useGroupStore();
+const userStore = useUserStore();
 
 export default {
   name: "SideBar",
@@ -78,14 +89,14 @@ export default {
     SearchList, GroupList, FriendList, Plus, ConversationList, Location, Setting, Document, Menu
   },
   setup() {
-    const userStore = useUserStore();
+
     const {userProfile} = storeToRefs(userStore);
     const menu = useMenu();
 
     return {
       userProfile,
       Search,
-      menu
+      menu,
     }
   },
   data() {
@@ -139,6 +150,10 @@ export default {
         this.searchStr = '';
         document.removeEventListener('click',this.closeSearchList);
       },100)
+    },
+    logout() {
+      userStore.logout();
+      this.$router.replace('/auth');
     }
   }
 }
@@ -215,4 +230,27 @@ export default {
     }
   }
 }
+
+.more-menu-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  .more-menu-item {
+    width: 70%;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px 0;
+    border-radius: 5px;
+    &:hover {
+      background-color: rgb(245,245,245);
+    }
+    &:active {
+
+    }
+  }
+}
+
 </style>
